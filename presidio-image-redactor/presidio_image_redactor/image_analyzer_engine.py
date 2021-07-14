@@ -93,6 +93,7 @@ class ImageAnalyzerEngine:
                         # contained within the text of recognized entity
                         # based on relative position in the full text
                         while pos + len(word) < element.end:
+                            prev_word = word
                             index, word = next(iter_ocr)
                             if word:
                                 bboxes.append(
@@ -107,7 +108,7 @@ class ImageAnalyzerEngine:
                                         ocr_result["height"][index],
                                     )
                                 )
-                            pos += len(word) + 1
+                            pos += len(prev_word) + 1
                         proc_indexes += 1
 
                 if proc_indexes == indexes:
